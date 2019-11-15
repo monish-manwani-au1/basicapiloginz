@@ -16,8 +16,9 @@ var {User} = require("./schema/user")
 //converts data to json format
 app.use(bodyParser.json());
 
-// Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/monish', { useNewUrlParser: true});
+var DB_URL = process.env.DB_URL || 'mongodb://localhost:27017/monish'
+
+mongoose.connect(DB_URL, { useNewUrlParser: true});
 
 var db = mongoose.connection;
 
@@ -27,7 +28,7 @@ if(!db)
 {console.log("Error connecting db"); }
     
 else
-{console.log("Db connected successfully"); }
+{console.log("Db connected successfully"+DB_URL); }
 
 // Setup server port
 var port = process.env.PORT || 3000;
